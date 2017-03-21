@@ -13,5 +13,5 @@ class Classifier_cluster_test(TestCase):
         self.classifier_cluster.Gradient_Boosted_Tree(data)
 
     def test_diabetes(self):
-        data="../data/diabetes_svm.txt"
+        data="../data/new_diabetes_svm.txt"
         self.classifier_cluster.Gradient_Boosted_Tree(data)
