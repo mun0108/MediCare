@@ -11,7 +11,7 @@ class Classifiers_cluster():
         if os.path.exists(input_file) == False:
             print "Invalid input file"
             return False
-        spark_application = "../src/Decision_Tree_Spark.py "
+        spark_application = "../src/Spark_Decision_Tree.py "
         command = "$SPARK_HOME/bin/spark-submit --master " + self.master + spark_application + input_file
         self.operations.runProcess(command)
 
@@ -19,6 +19,14 @@ class Classifiers_cluster():
         if os.path.exists(input_file) == False:
             print "Invalid input file"
             return False
-        spark_application = "../src/Naive_Bayes_Spark.py "
+        spark_application = "../src/Spark_Naive_Bayes.py "
+        command = "$SPARK_HOME/bin/spark-submit --master " + self.master + spark_application + input_file
+        self.operations.runProcess(command)
+
+    def Gradient_Boosted_Tree(self,input_file):
+        if os.path.exists(input_file) == False:
+            print "Invalid input file"
+            return False
+        spark_application = "../src/Spark_Gradient_Boosted_Tree.py "
         command = "$SPARK_HOME/bin/spark-submit --master " + self.master + spark_application + input_file
         self.operations.runProcess(command)
