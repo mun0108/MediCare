@@ -38,3 +38,11 @@ class Classifiers_cluster():
         spark_application = "../src/Spark_MultiLayer_Perceptron.py "
         command = "$SPARK_HOME/bin/spark-submit --master " + self.master + spark_application + input_file+" "+num_features
         self.operations.runProcess(command)
+
+    def PredictDecision_Tree(self, input_file):
+        if os.path.exists(input_file) == False:
+            print "Invalid input file"
+            return False
+        spark_application = "../src/Predict_DTModel.py "
+        command = "$SPARK_HOME/bin/spark-submit --master " + self.master + spark_application + input_file
+        self.operations.runProcess(command)

@@ -1,6 +1,6 @@
 from unittest import TestCase
 from src.Classifiers_cluster import Classifiers_cluster
-class Classifier_cluster_test(TestCase):
+class Classifier_cluster_test_GBT(TestCase):
     def setUp(self):
         self.classifier_cluster=Classifiers_cluster()
 

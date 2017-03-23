@@ -43,15 +43,6 @@ class HadoopOperations():
         hdfs.get(src_hdfs_location,dest_local_location)
         return True
 
-    def remove_directory(self,hdfs_path):
-        if (hdfs_path == ""):
-            print "No directory specified to delete!"
-            return False
-        elif(self.file_exist(hdfs_path)==False):
-            return False
-        hdfs.rmr(hdfs_path)
-        return True
-
     def copy_from_local_to_hdfs(self,src_local_location,dest_local_location):
         if(dest_local_location==""):
             print "Not a valid hdfs path"
@@ -62,3 +53,13 @@ class HadoopOperations():
         else:
             print "Local destination does not exist"
             return False
+
+    def remove_directory(self,hdfs_path):
+        if (hdfs_path == ""):
+            print "No directory specified to delete!"
+            return False
+        elif(self.file_exist(hdfs_path)==False):
+            return False
+        hdfs.rmr(hdfs_path)
+        return True
+

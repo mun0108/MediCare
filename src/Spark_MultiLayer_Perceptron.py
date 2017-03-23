@@ -1,10 +1,8 @@
 from __future__ import print_function
 import sys
-# $example on$
 from pyspark.ml.classification import MultilayerPerceptronClassifier
 from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 from pyspark.ml.feature import StringIndexer
-# $example off$
 from pyspark.sql import SparkSession
 
 if __name__ == "__main__":
@@ -15,7 +13,6 @@ if __name__ == "__main__":
     spark = SparkSession\
         .builder.appName("multilayer_perceptron_classification_example").getOrCreate()
 
-    # $example on$
     # Load training data
     data = spark.read.format("libsvm")\
         .load(sys.argv[1])
@@ -48,6 +45,5 @@ if __name__ == "__main__":
                                                   metricName="accuracy")
     accuracy = evaluator.evaluate(result)
     print("Test set accuracy = " + str(accuracy))
-    # $example off$
 
     spark.stop()

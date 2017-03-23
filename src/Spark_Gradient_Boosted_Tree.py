@@ -1,11 +1,9 @@
 from __future__ import print_function
 import sys
-# $example on$
 from pyspark.ml import Pipeline
 from pyspark.ml.classification import GBTClassifier
 from pyspark.ml.feature import StringIndexer, VectorIndexer
 from pyspark.ml.evaluation import MulticlassClassificationEvaluator
-# $example off$
 from pyspark.sql import SparkSession
 
 if __name__ == "__main__":
@@ -18,7 +16,6 @@ if __name__ == "__main__":
         .appName("GradientBoostedTreeClassifierExample")\
         .getOrCreate()
 
-    # $example on$
     # Load and parse the data file, converting it to a DataFrame.
     data = spark.read.format("libsvm").load(sys.argv[1])
 
@@ -56,6 +53,5 @@ if __name__ == "__main__":
 
     gbtModel = model.stages[2]
     print(gbtModel)  # summary only
-    # $example off$
 
     spark.stop()

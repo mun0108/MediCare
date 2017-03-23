@@ -1,7 +1,7 @@
 from __future__ import print_function
 import sys
-from pyspark.ml import Pipeline
-from pyspark.ml.classification import DecisionTreeClassifier
+from pyspark.ml import PipelineModel
+from pyspark.ml.classification import DecisionTreeClassifier,DecisionTreeClassificationModel
 from pyspark.ml.feature import StringIndexer, VectorIndexer
 from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 from pyspark.sql import SparkSession
@@ -30,14 +30,8 @@ if __name__ == "__main__":
     # Split the data into training and test sets (30% held out for testing)
     (trainingData, testData) = data.randomSplit([0.7, 0.3])
 
-    # Train a DecisionTree model.
-    dt = DecisionTreeClassifier(labelCol="indexedLabel", featuresCol="indexedFeatures")
-
-    # Chain indexers and tree in a Pipeline
-    pipeline = Pipeline(stages=[labelIndexer, featureIndexer, dt])
-
-    # Train model.  This also runs the indexers.
-    model = pipeline.fit(trainingData)
+    # Load the DecisionTree model.
+    model = PipelineModel.load("../test/DTModel")
 
     # Make predictions.
     predictions = model.transform(testData)
@@ -50,10 +44,5 @@ if __name__ == "__main__":
         labelCol="indexedLabel", predictionCol="prediction", metricName="accuracy")
     accuracy = evaluator.evaluate(predictions)
     print("Test Error = %g " % (1.0 - accuracy))
-
-    treeModel = model.stages[2]
-    # summary only
-    print(treeModel)
-    model.save("DTModel")
 
     spark.stop()
