@@ -7,8 +7,8 @@ from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 from pyspark.sql import SparkSession
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: Decision_Tree_Spark <file>", file=sys.stderr)
+    if len(sys.argv) != 3:
+        print("Usage: Decision_Tree_Spark <file> <output>", file=sys.stderr)
         exit(-1)
 
     spark = SparkSession\
@@ -28,7 +28,7 @@ if __name__ == "__main__":
         VectorIndexer(inputCol="features", outputCol="indexedFeatures", maxCategories=4).fit(data)
 
     # Split the data into training and test sets (30% held out for testing)
-    (trainingData, testData) = data.randomSplit([0.7, 0.3])
+    (trainingData, testData) = data.randomSplit([0.75, 0.25])
 
     # Train a DecisionTree model.
     dt = DecisionTreeClassifier(labelCol="indexedLabel", featuresCol="indexedFeatures")
@@ -54,6 +54,6 @@ if __name__ == "__main__":
     treeModel = model.stages[2]
     # summary only
     print(treeModel)
-    model.save("DTModel")
+    model.save(sys.argv[2])
 
     spark.stop()

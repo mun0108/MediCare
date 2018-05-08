@@ -31,7 +31,7 @@ if __name__ == "__main__":
     (trainingData, testData) = data.randomSplit([0.7, 0.3])
 
     # Load the DecisionTree model.
-    model = PipelineModel.load("../test/DTModel")
+    model = PipelineModel.load("../test/DTModel")   #breast cancer model
 
     # Make predictions.
     predictions = model.transform(testData)

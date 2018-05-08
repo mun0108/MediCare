@@ -7,12 +7,13 @@ class Classifiers_cluster():
         self.master="spark://golum:7077 "
 
 
-    def Decision_Tree(self,input_file):
+    def Decision_Tree(self,input_file,model_name):
         if os.path.exists(input_file) == False:
             print "Invalid input file"
             return False
         spark_application = "../src/Spark_Decision_Tree.py "
-        command = "$SPARK_HOME/bin/spark-submit --master " + self.master + spark_application + input_file
+        command = "$SPARK_HOME/bin/spark-submit --master " + self.master + spark_application \
+                  + input_file+ " "+model_name
         self.operations.runProcess(command)
 
     def Naive_Bayes(self,input_file):
